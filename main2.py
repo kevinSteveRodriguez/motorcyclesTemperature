@@ -11,6 +11,8 @@ alto = 64
 alert_message = "ALERTA"
 danger_message = "PELIGRO"
 normal_message = "ESTABLE"
+value_temp_alert = 50.1
+value_temp_danger = 100.1
 
 i2c = I2C(0, scl=Pin(22), sda=Pin(21))
 oled = SSD1306_I2C(ancho, alto, i2c)
@@ -71,10 +73,10 @@ if conectaWifi("EndpointEthernetR5G", "PASS543212"):
             oled.text("c", 110, 30, 1)
             oled.text("Estado:", 0, 45, 1)
 
-            if tem <= 5:
+            if tem > value_temp_alert:
                 oled.text(str(alert_message), 60, 45, 1)
                 print("La temperatura de tu moto esta en estado: " + alert_message)
-            elif tem <= 0:
+            elif tem > value_temp_danger:
                 oled.text(str(danger_message), 60, 45, 1)
                 print("La temperatura de tu moto esta en estado: " + danger_message)
             else:
